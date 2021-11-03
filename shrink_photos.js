@@ -14,18 +14,22 @@ async function shrinkHandler(imageName, browser) {
 
   const inputUploadHandle = await page.$('input[type=file]');
   inputUploadHandle.uploadFile(`./images/${imageName}`); // UPLOAD THE IMAGE
+  console.log("Loaded file ", imageName);
 
   await page.waitForTimeout(30000)
     .then(async()=>{
       await page.evaluate(()=>{
         document.querySelector("#app > div > file-drop > div > div._options-2_zecs5_54._options_zecs5_22._options-2-theme_zecs5_54 > div._results-right_17s86_295._results_17s86_26 > a").click();
       })
+    
+      console.log("Downloaded file ", imageName);
+
     })
 }
 
 (async () => {
   let launchOptions = { 
-    // headless: false, 
+    headless: false, 
     args: ['--start-maximized'] };
   const browser = await puppeteer.launch(launchOptions);
 
@@ -36,6 +40,9 @@ async function shrinkHandler(imageName, browser) {
     let controlVar = 0;
     for(image of imagesToUpload) {
       await shrinkHandler(image, browser);
+
+      console.log(`${imagesToUpload[image] + 1}/${imagesToUpload.length}`);
+      
       controlVar++;
     }
 
