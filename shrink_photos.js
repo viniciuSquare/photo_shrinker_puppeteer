@@ -40,8 +40,9 @@ async function shrinkHandler(imageName, browser) {
     let controlVar = 0;
     for(let image of imagesToUpload) {
       await shrinkHandler(image, browser);
-      console.log(imagesToUpload.indexOf(image), "Posição");
-      console.log(image, "ARQUIVO");
+      
+      //console.log("Posição ", imagesToUpload.indexOf(image));
+      //console.log("ARQUIVO", image);
 
       console.log(`${+imagesToUpload.indexOf(image) + 1}/${imagesToUpload.length}`);
       
